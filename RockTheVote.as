@@ -878,7 +878,7 @@ void BeginVote() {
         }
     }
 
-	if (g_ChangeOnAllVote.GetInt() == 1) {
+	if (g_ExtendCurrentMap.GetInt() == 1) {
 		rtvList.insertLast("Extend current map");
 	}
 
