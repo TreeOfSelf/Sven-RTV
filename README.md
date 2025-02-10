@@ -38,6 +38,7 @@ as_command rtv.iMaxMaps 9
 as_command rtv.secondsToVote 25
 as_command rtv.iPercentReq 66
 as_command rtv.changeOnAllVote 1
+as_command rtv.extendCurrentMap 1
 as_command rtv.iChooseEnding 1
 as_command rtv.iExcludePrevMaps 0
 as_command rtv.bPlaySounds 1
@@ -59,7 +60,7 @@ A nomination-based vote system that allows players to vote on a new map to play 
 - `nominate [map name / partial map name]` - If a map isn't specicif to one map, a menu will display for the player to pick a map to nominate. One map per player, until MaxMapsToVote.
   
 ## Configs:
-There are 9 Variables you can manipulate, you have to go to console and type as_command rtv.cvarhere value.
+There are multiple configurations you can manipulate, you have to go to console and type as_command rtv.cvarhere value.
 Add the below defaults to your "server.cfg" file if you haven't already.
 
 
@@ -74,6 +75,7 @@ as_command rtv.iMaxMaps 9
 as_command rtv.secondsToVote 25
 as_command rtv.iPercentReq 66
 as_command rtv.changeOnAllVote 1
+as_command rtv.extendCurrentMap 1
 as_command rtv.iChooseEnding 1
 as_command rtv.iExcludePrevMaps 0
 as_command rtv.bPlaySounds 1
@@ -90,6 +92,7 @@ iMaxMaps - (1 - However many maps in your list, please be careful to adhere to t
 secondsToVote - (1 - N) How long can players vote for a map before a map is chosen
 iPercentReq - (1-100), percent of players required to RTV before voting happens
 changeOnAllVote - (1 (True) or 0 (False)), whether or not to instantly change the map once all players have casted their votes
+extendCurrentMap - (1 (True) or 0 (False)), whether to give the option to extend the current map
 iChooseEnding - (1, 2, 3) Set to 1 to revote when a tie happens, 2 to choose randomly amongst the ties, 3 to await RTV again
 iExcludePrevMaps - (0-N) How many previously played maps to exclude from voting? Deletes the first one in list when it reaches configured amount.
 rtv.bPlaySounds - (1 (True) or 0 (False)) Allow sounds to be played when RTV begins the voting process.
