@@ -159,9 +159,9 @@ CScheduledFunction @g_TimeUntilVote = null;
 
 // Hooks
 void PluginInit() {
-    g_Module.ScriptInfo.SetAuthor("MrOats");
+    g_Module.ScriptInfo.SetAuthor("Sebastian");
     g_Module.ScriptInfo.SetContactInfo(
-        "http://forums.svencoop.com/showthread.php/44609-Plugin-RockTheVote");
+        "https://github.com/TreeOfSelf/Sven-RTV");
     g_Hooks.RegisterHook(Hooks::Player::ClientDisconnect, @DisconnectCleanUp);
     g_Hooks.RegisterHook(Hooks::Player::ClientPutInServer, @AddPlayer);
     g_Hooks.RegisterHook(Hooks::Game::MapChange, @ResetVars);
