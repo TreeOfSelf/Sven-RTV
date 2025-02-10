@@ -10,6 +10,7 @@ Changes & Contributions:
 - Non-deterministic random
 - Partial map nomination
 - Option to instantly change map once all votes are cast
+- Extend current map option
 
 Documentation:  
 https://github.com/TreeOfSelf/Sven-RTV 
@@ -142,6 +143,7 @@ int secondsleftforvote = 0;
 CCVar @g_SecondsUntilVote;
 CCVar @g_MapList;
 CCVar @g_ChangeOnAllVote;
+CCVar @g_ExtendCurrentMap;
 CCVar @g_WhenToChange;
 CCVar @g_MaxMapsToVote;
 CCVar @g_VotingPeriodTime;
@@ -176,6 +178,10 @@ void PluginInit() {
     @g_ChangeOnAllVote =
         CCVar("changeOnAllVote", 1,
               "Whether to instantly change as soon as everyone has voted",
+              ConCommandFlag::AdminOnly); 
+    @g_ExtendCurrentMap =
+        CCVar("extendCurrentMap", 1,
+              "Whether to give the option to extend the current map",
               ConCommandFlag::AdminOnly); 
     @g_WhenToChange =
         CCVar("iChangeWhen", 0,
@@ -872,7 +878,9 @@ void BeginVote() {
         }
     }
 
-    rtvList.insertLast("Extend current map");
+	if (g_ChangeOnAllVote.GetInt() == 1) {
+		rtvList.insertLast("Extend current map");
+	}
 
     // Give Menus to Vote!
     VoteMenu(rtvList);
