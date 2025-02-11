@@ -11,6 +11,7 @@ Original plugin authored by [MrOats](https://github.com/MrOats/AngelScript_SC_Pl
 Changes & Contributions in this Version:  
 - Non-deterministic random
 - Partial map nomination
+- Option to add "Extent current map" to RTV menu
 - Option to instantly change map once all votes are cast
 
 
