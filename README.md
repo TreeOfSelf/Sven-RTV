@@ -93,5 +93,5 @@ rtv.bPlaySounds - (1 (True) or 0 (False)) Allow sounds to be played when RTV beg
 
 ## License
 
-[CC0](https://creativecommons.org/public-domain/cc0/)
+[MPL v2.0](https://creativecommons.org/public-domain/cc0/](http://mozilla.org/MPL/2.0/)
 
