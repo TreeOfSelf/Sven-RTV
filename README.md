@@ -86,3 +86,12 @@ iChooseEnding - (1, 2, 3) Set to 1 to revote when a tie happens, 2 to choose ran
 iExcludePrevMaps - (0-N) How many previously played maps to exclude from voting? Deletes the first one in list when it reaches configured amount.
 rtv.bPlaySounds - (1 (True) or 0 (False)) Allow sounds to be played when RTV begins the voting process.
 ```
+
+## Support
+
+[Support discord here!]( https://discord.gg/3tP3Tqu983)
+
+## License
+
+[CC0](https://creativecommons.org/public-domain/cc0/)
+
