@@ -66,21 +66,9 @@ Add the below defaults to your "server.cfg" file if you haven't already.
 
 
 You can use a .cfg file to give a map unique settings for the plugin.
-Just navigate to the folder of the map, and find/create a file named mapname.cfg and input any of these
+Just navigate to the folder of the map, and find/create a file named mapname.cfg and put lines with `as_command rtv.cvarhere value`
 
-```
-as_command rtv.secondsUntilVote 120
-as_command rtv.szMapListPath "mapcycle.txt"
-as_command rtv.iChangeWhen 0
-as_command rtv.iMaxMaps 9
-as_command rtv.secondsToVote 25
-as_command rtv.iPercentReq 66
-as_command rtv.changeOnAllVote 1
-as_command rtv.extendCurrentMap 1
-as_command rtv.iChooseEnding 1
-as_command rtv.iExcludePrevMaps 0
-as_command rtv.bPlaySounds 1
-```
+
 Adjust values above as needed. If a .cfg file is not found for the map, then it will assume the values you put in server.cfg
 
 ## CVar Help:
