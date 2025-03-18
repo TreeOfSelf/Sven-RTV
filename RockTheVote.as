@@ -150,7 +150,6 @@ CCVar @g_VotingPeriodTime;
 CCVar @g_PercentageRequired;
 CCVar @g_ChooseEnding;
 CCVar @g_ExcludePrevMaps;
-CCVar @g_PlaySounds;
 
 // Global Timers/Schedulers
 
@@ -208,36 +207,8 @@ void PluginInit() {
         CCVar("iExcludePrevMaps", 0,
               "How many maps to exclude from nomination or voting",
               ConCommandFlag::AdminOnly);
-    @g_PlaySounds =
-        CCVar("bPlaySounds", 1,
-              "Set to 1 to play sounds, set to 0 to not play sounds",
-              ConCommandFlag::AdminOnly);
 }
 
-void MapInit() {
-    // Precache Sounds
-    // 1
-    g_Game.PrecacheGeneric("fvox/one.wav");
-    g_SoundSystem.PrecacheSound("fvox/one.wav");
-    // 2
-    g_Game.PrecacheGeneric("fvox/two.wav");
-    g_SoundSystem.PrecacheSound("fvox/two.wav");
-    // 3
-    g_Game.PrecacheGeneric("fvox/three.wav");
-    g_SoundSystem.PrecacheSound("fvox/three.wav");
-    // 4
-    g_Game.PrecacheGeneric("fvox/four.wav");
-    g_SoundSystem.PrecacheSound("fvox/four.wav");
-    // 5
-    g_Game.PrecacheGeneric("fvox/five.wav");
-    g_SoundSystem.PrecacheSound("fvox/five.wav");
-    // 10
-    g_Game.PrecacheGeneric("puchi/spportal/tenseconds.wav");
-    g_SoundSystem.PrecacheSound("puchi/spportal/tenseconds.wav");
-    // Time to choose
-    g_Game.PrecacheGeneric("gman/gman_choose1.wav");
-    g_SoundSystem.PrecacheSound("gman/gman_choose1.wav");
-}
 
 void MapActivate() {
     // Clean up Vars and Menus
@@ -371,66 +342,41 @@ void DecrementVoteSeconds() {
         return;
     }
 
-    if (secondsleftforvote == g_VotingPeriodTime.GetInt() &&
-        g_PlaySounds.GetBool()) {
+    if (secondsleftforvote == g_VotingPeriodTime.GetInt()) {
         CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO,
-                                "gman/gman_choose1.wav", 1.0f, ATTN_NONE, 0,
-                                100, 0, true, pPlayer.pev.origin);
+        string msg = string(secondsleftforvote) + " seconds left to vote.";
+        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
+        secondsleftforvote--;
+    } else if (secondsleftforvote == 10) {
+        CBasePlayer @pPlayer = PickRandomPlayer();
 
         string msg = string(secondsleftforvote) + " seconds left to vote.";
         g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
         secondsleftforvote--;
-    } else if (secondsleftforvote == 10 && g_PlaySounds.GetBool()) {
+    } else if (secondsleftforvote == 5) {
         CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO,
-                                "puchi/spportal/tenseconds.wav", 1.0f,
-                                ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+        string msg = string(secondsleftforvote) + " seconds left to vote.";
+        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
+        secondsleftforvote--;
+    } else if (secondsleftforvote == 4) {
+        CBasePlayer @pPlayer = PickRandomPlayer();
+        string msg = string(secondsleftforvote) + " seconds left to vote.";
+        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
+        secondsleftforvote--;
+    } else if (secondsleftforvote == 3) {
+        CBasePlayer @pPlayer = PickRandomPlayer();
 
         string msg = string(secondsleftforvote) + " seconds left to vote.";
         g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
         secondsleftforvote--;
-    } else if (secondsleftforvote == 5 && g_PlaySounds.GetBool()) {
+    } else if (secondsleftforvote == 2) {
         CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/five.wav",
-                                1.0f, ATTN_NONE, 0, 100, 0, true,
-                                pPlayer.pev.origin);
 
         string msg = string(secondsleftforvote) + " seconds left to vote.";
         g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
         secondsleftforvote--;
-    } else if (secondsleftforvote == 4 && g_PlaySounds.GetBool()) {
+    } else if (secondsleftforvote == 1) {
         CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/four.wav",
-                                1.0f, ATTN_NONE, 0, 100, 0, true,
-                                pPlayer.pev.origin);
-
-        string msg = string(secondsleftforvote) + " seconds left to vote.";
-        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
-        secondsleftforvote--;
-    } else if (secondsleftforvote == 3 && g_PlaySounds.GetBool()) {
-        CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/three.wav",
-                                1.0f, ATTN_NONE, 0, 100, 0, true,
-                                pPlayer.pev.origin);
-
-        string msg = string(secondsleftforvote) + " seconds left to vote.";
-        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
-        secondsleftforvote--;
-    } else if (secondsleftforvote == 2 && g_PlaySounds.GetBool()) {
-        CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/two.wav",
-                                1.0f, ATTN_NONE, 0, 100, 0, true,
-                                pPlayer.pev.origin);
-
-        string msg = string(secondsleftforvote) + " seconds left to vote.";
-        g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
-        secondsleftforvote--;
-    } else if (secondsleftforvote == 1 && g_PlaySounds.GetBool()) {
-        CBasePlayer @pPlayer = PickRandomPlayer();
-        g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/one.wav",
-                                1.0f, ATTN_NONE, 0, 100, 0, true,
-                                pPlayer.pev.origin);
 
         string msg = string(secondsleftforvote) + " seconds left to vote.";
         g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
