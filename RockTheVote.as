@@ -309,7 +309,7 @@ bool HaveAllPlayersVoted() {
 
     for (int i = 1; i <= g_Engine.maxClients; i++) {
         CBasePlayer @pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
-        if (pPlayer !is null && pPlayer.IsConnected()) {
+        if (pPlayer !is null && pPlayer.IsConnected() && (pPlayer.pev.flags & FL_FAKECLIENT) == 0) {
             totalPlayers++;
 
             RTV_Data @rtvdataobj = @rtv_plr_data[pPlayer.entindex() - 1];
@@ -577,7 +577,7 @@ CBasePlayer @PickRandomPlayer() {
     CBasePlayer @pPlayer;
     for (int i = 1; i <= g_Engine.maxClients; i++) {
         @pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
-        if ((pPlayer !is null) && (pPlayer.IsConnected())) break;
+        if ((pPlayer !is null) && (pPlayer.IsConnected()) && (pPlayer.pev.flags & FL_FAKECLIENT) == 0) break;
     }
 
     return @pPlayer;
@@ -768,7 +768,7 @@ void VoteMenu(array<string> rtvList) {
     for (int i = 1; i <= g_Engine.maxClients; i++) {
         CBasePlayer @pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
 
-        if (pPlayer !is null) {
+        if (pPlayer !is null && pPlayer.IsConnected() && (pPlayer.pev.flags & FL_FAKECLIENT) == 0) {
             rtvmenu.Open(0, 0, pPlayer);
         }
     }
@@ -985,8 +985,14 @@ void ChooseMap(string chosenMap, bool forcechange) {
 // Utility Functions
 
 int CalculateRequired() {
-    return int(ceil(g_PlayerFuncs.GetNumPlayers() *
-                    (g_PercentageRequired.GetInt() / 100.0f)));
+    int realPlayers = 0;
+    for (int i = 1; i <= g_Engine.maxClients; i++) {
+        CBasePlayer @pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
+        if (pPlayer !is null && pPlayer.IsConnected() && (pPlayer.pev.flags & FL_FAKECLIENT) == 0) {
+            realPlayers++;
+        }
+    }
+    return int(ceil(realPlayers * (g_PercentageRequired.GetInt() / 100.0f)));
 }
 
 string RandomMap() { return maplist[Math.RandomLong(0, maplist.length())]; }
